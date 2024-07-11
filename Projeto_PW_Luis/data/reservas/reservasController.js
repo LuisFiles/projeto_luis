@@ -6,13 +6,13 @@ function reservasController(ReservaModel) {
         findAll,
         findById,
         findByIdUser,
+        findByIdUserAndStatus,
         update,
         removeById
     };
 
     function create(values) {
         return new Promise((resolve, reject) => {
-            // Verificar se a data de vencimento está dentro de 15 dias da data de reserva
             const maxReservaPeriod = 15 * 24 * 60 * 60 * 1000; // 15 dias em milissegundos
             const dataReserva = values.dataReserva ? new Date(values.dataReserva) : new Date();
             const dataVencimento = new Date(values.dataVencimento);
@@ -21,7 +21,6 @@ function reservasController(ReservaModel) {
                 return reject(new Error('O período máximo de reserva é de 15 dias.'));
             }
 
-            // Verificar se o utilizador já tem 3 livros reservados
             ReservaModel.countDocuments({ utilizador: values.utilizador, status: 'reservado' })
                 .then(count => {
                     if (count >= 3) {
@@ -64,6 +63,15 @@ function reservasController(ReservaModel) {
     function findByIdUser(userId) {
         return new Promise((resolve, reject) => {
             ReservaModel.find({ utilizador: userId })
+                .populate('utilizador livro')
+                .then((reservas) => resolve(reservas))
+                .catch((err) => reject(err));
+        });
+    }
+
+    function findByIdUserAndStatus(userId, status) {
+        return new Promise((resolve, reject) => {
+            ReservaModel.find({ utilizador: userId, status: status })
                 .populate('utilizador livro')
                 .then((reservas) => resolve(reservas))
                 .catch((err) => reject(err));

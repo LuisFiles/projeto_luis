@@ -73,6 +73,24 @@ function reservaRouter() {
                 });
         });
 
+    router.route('/reserva/user/reservado/:userId')
+        .get((req, res) => {
+            console.log('get by user id with status reservado');
+            let userId = req.params.userId;
+            reservasController.findByIdUserAndStatus(userId, 'reservado')
+                .then((reservas) => {
+                    if (reservas.length > 0) {
+                        res.status(200).json(reservas);
+                    } else {
+                        res.status(404).json({ error: 'Nenhuma reserva encontrada com status reservado para este utilizador' });
+                    }
+                })
+                .catch((err) => {
+                    console.error('Erro ao obter reservas com status reservado por ID do utilizador:', err.message);
+                    res.status(500).json({ error: 'Erro ao obter reservas', details: err.message });
+                });
+        });
+
     router.route('/reserva/:id')
         .get((req, res) => {
             console.log('get by id');
