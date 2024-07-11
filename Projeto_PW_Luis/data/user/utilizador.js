@@ -4,7 +4,7 @@ let scopes = require("./scopes");
 
 let roleSchema = new Schema ({
     name: {type: String, required:true},
-    scopes : [{type: String, enum:[scopes["read-all"], scopes["read-posts"], scopes["manage-posts"]]}]
+    scopes : [{type: String, enum:[scopes["read-all"], scopes["read-posts"], scopes["manage-posts"], scopes["admin"], scopes["user"]]}]
   });
 
 const utilizadorSchema = new mongoose.Schema({

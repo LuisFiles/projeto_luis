@@ -35,7 +35,7 @@ function livroRouter() {
     });
 
     router.route('/livro')
-        .get(utilizador.authorize([scopes["read-all"], scopes["read-posts"]]))
+        .get(utilizador.authorize([scopes["read-all"], scopes["read-posts"], scopes["admin"]]))
         .get((req, res) => {
             console.log('get');
             livroController.findAll()
@@ -47,7 +47,7 @@ function livroRouter() {
                     res.status(500).json({ error: 'Erro ao obter livros', details: err.message });
                 });
         })
-        .post(utilizador.authorize([scopes["manage-posts"]]), async (req, res) => {
+        .post(utilizador.authorize([scopes["admin"]]), async (req, res) => {
             console.log('post');
             let body = req.body;
             try {
@@ -61,7 +61,7 @@ function livroRouter() {
         });
 
     router.route('/livro/titulo/:titulo')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]),(req, res) => {
             console.log('get by title');
             let titulo = req.params.titulo;
             livroController.findByTitulo(titulo)
@@ -77,7 +77,7 @@ function livroRouter() {
                     res.status(500).json({ error: 'Erro ao obter livro', details: err.message });
                 });
         })
-        .put(async (req, res) => {
+        .put(utilizador.authorize([scopes["admin"]]), async (req, res) => {
             console.log('put');
             let titulo = req.params.titulo;
             let body = req.body;
@@ -91,7 +91,7 @@ function livroRouter() {
                 res.status(400).json({ error: 'Erro ao atualizar livro', details: err.message });
             }
         })
-        .delete(async (req, res) => {
+        .delete(utilizador.authorize([scopes["admin"]]), async (req, res) => {
             console.log('delete');
             let titulo = req.params.titulo;
 
@@ -106,7 +106,7 @@ function livroRouter() {
         });
 
     router.route('/livro/categoria/:categoria')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]), (req, res) => {
             console.log('get by category');
             let categoria = req.params.categoria;
             livroController.findByCategoria(categoria)
@@ -124,7 +124,7 @@ function livroRouter() {
         });
 
     router.route('/livro/autor/:autor')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]),(req, res) => {
             console.log('get by author');
             let autor = req.params.autor;
             livroController.findByAutor(autor)

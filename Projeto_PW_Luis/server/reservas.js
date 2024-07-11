@@ -6,6 +6,7 @@ const Reserva = require('../data/reservas/reservas');
 const reservasController = require('../data/reservas/reservasController')(Reserva);
 const authController = require('../data/user/authController'); 
 const utilizador = require('../data/user/indexAuth'); 
+const scopes = require('../data/user/scopes');
 
 function reservaRouter() {
     let router = express.Router();
@@ -35,7 +36,7 @@ function reservaRouter() {
     });
 
     router.route('/reserva')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]),(req, res) => {
             console.log('get');
             reservasController.findAll()
                 .then((reservas) => {
@@ -46,7 +47,7 @@ function reservaRouter() {
                     res.status(500).json({ error: 'Erro ao obter reservas', details: err.message });
                 });
         })
-        .post(async (req, res) => {
+        .post(utilizador.authorize([scopes["admin"], scopes["user"]]), async (req, res) => {
             console.log('post');
             let body = req.body;
             try {
@@ -59,8 +60,9 @@ function reservaRouter() {
             }
         });
 
+
     router.route('/reserva/user/:userId')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]),(req, res) => {
             console.log('get by user id');
             let userId = req.params.userId;
             reservasController.findByIdUser(userId)
@@ -74,7 +76,7 @@ function reservaRouter() {
         });
 
     router.route('/reserva/user/reservado/:userId')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]) ,(req, res) => {
             console.log('get by user id with status reservado');
             let userId = req.params.userId;
             reservasController.findByIdUserAndStatus(userId, 'reservado')
@@ -92,7 +94,7 @@ function reservaRouter() {
         });
 
     router.route('/reserva/:id')
-        .get((req, res) => {
+        .get(utilizador.authorize([scopes["admin"], scopes["user"]]) ,(req, res) => {
             console.log('get by id');
             let id = req.params.id;
             reservasController.findById(id)
@@ -108,7 +110,7 @@ function reservaRouter() {
                     res.status(500).json({ error: 'Erro ao obter reserva', details: err.message });
                 });
         })
-        .put(async (req, res) => {
+        .put(utilizador.authorize([scopes["user"]]) ,async (req, res) => {
             console.log('put');
             let id = req.params.id;
             let body = req.body;
@@ -122,7 +124,7 @@ function reservaRouter() {
                 res.status(400).json({ error: 'Erro ao atualizar reserva', details: err.message });
             }
         })
-        .delete(async (req, res) => {
+        .delete (utilizador.authorize([scopes["user"]]) ,async (req, res) => {
             console.log('delete');
             let id = req.params.id;
 
