@@ -11,8 +11,28 @@ function reservasController(ReservaModel) {
     };
 
     function create(values) {
-        let newReserva = new ReservaModel(values);
-        return save(newReserva);
+        return new Promise((resolve, reject) => {
+            // Verificar se a data de vencimento está dentro de 15 dias da data de reserva
+            const maxReservaPeriod = 15 * 24 * 60 * 60 * 1000; // 15 dias em milissegundos
+            const dataReserva = values.dataReserva ? new Date(values.dataReserva) : new Date();
+            const dataVencimento = new Date(values.dataVencimento);
+
+            if (dataVencimento - dataReserva > maxReservaPeriod) {
+                return reject(new Error('O período máximo de reserva é de 15 dias.'));
+            }
+
+            // Verificar se o utilizador já tem 3 livros reservados
+            ReservaModel.countDocuments({ utilizador: values.utilizador, status: 'reservado' })
+                .then(count => {
+                    if (count >= 3) {
+                        return reject(new Error('O utilizador já reservou o máximo de 3 livros.'));
+                    }
+
+                    let newReserva = new ReservaModel(values);
+                    return save(newReserva).then(resolve).catch(reject);
+                })
+                .catch(err => reject(new Error('Erro ao verificar reservas do utilizador: ' + err.message)));
+        });
     }
 
     function save(newReserva) {
