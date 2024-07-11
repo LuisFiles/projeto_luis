@@ -4,9 +4,11 @@ function livroController(livroModel) {
         create, 
         findAll,
         findByTitulo,
+        findByCategoria,
+        findByAutor,
         update,
         removeByTitulo
-     };
+    };
 
     function create(values) {
         let newLivro = new livroModel(values);
@@ -24,7 +26,7 @@ function livroController(livroModel) {
     function findAll(){
         return new Promise((resolve, reject) => {
             livroModel.find({})
-                .then((livro) => resolve(livro))
+                .then((livros) => resolve(livros))
                 .catch((err) => reject(err));
         });
     }
@@ -32,12 +34,28 @@ function livroController(livroModel) {
     function findByTitulo(titulo){
         return new Promise((resolve, reject) => {
             livroModel.findOne({ titulo: titulo })
-            .then((livro) => resolve(livro))
-            .catch((err) => reject(err));
+                .then((livro) => resolve(livro))
+                .catch((err) => reject(err));
         });
     }
 
-   function update(titulo, values) {
+    function findByCategoria(categoria){
+        return new Promise((resolve, reject) => {
+            livroModel.find({ categoria: categoria })
+                .then((livros) => resolve(livros))
+                .catch((err) => reject(err));
+        });
+    }
+
+    function findByAutor(autor){
+        return new Promise((resolve, reject) => {
+            livroModel.find({ autor: autor })
+                .then((livros) => resolve(livros))
+                .catch((err) => reject(err));
+        });
+    }
+
+    function update(titulo, values) {
         return new Promise((resolve, reject) => {
             livroModel.updateOne({ titulo: titulo }, values)
                 .then((livro) => resolve(livro))
