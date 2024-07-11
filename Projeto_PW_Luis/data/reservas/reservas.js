@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const utilizador = require('./utilizador');
+const utilizador = require('../user/utilizador');
+const livro = require('../livro/livro');
 
 const reservaSchema = new mongoose.Schema({
     utilizador: {type: mongoose.Schema.Types.ObjectId, ref: 'utilizador', required:true},
