@@ -2,10 +2,10 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const Reserva = require('../data/reservas/reservas'); // Certifique-se de que o caminho está correto
+const Reserva = require('../data/reservas/reservas'); 
 const reservasController = require('../data/reservas/reservasController')(Reserva);
-const authController = require('../data/user/authController'); // Certifique-se de que "../data/user/authController" está correto e contém o método "createToken"
-const utilizador = require('../data/user/indexAuth'); // Certifique-se de que o caminho está correto
+const authController = require('../data/user/authController'); 
+const utilizador = require('../data/user/indexAuth'); 
 
 function reservaRouter() {
     let router = express.Router();
@@ -57,6 +57,20 @@ function reservaRouter() {
                 console.log('Erro ao criar reserva:', err.message);
                 res.status(400).json({ error: 'Erro ao criar reserva', details: err.message });
             }
+        });
+
+    router.route('/reserva/user/:userId')
+        .get((req, res) => {
+            console.log('get by user id');
+            let userId = req.params.userId;
+            reservasController.findByIdUser(userId)
+                .then((reservas) => {
+                    res.status(200).json(reservas);
+                })
+                .catch((err) => {
+                    console.error('Erro ao obter reservas por ID do utilizador:', err.message);
+                    res.status(500).json({ error: 'Erro ao obter reservas', details: err.message });
+                });
         });
 
     router.route('/reserva/:id')

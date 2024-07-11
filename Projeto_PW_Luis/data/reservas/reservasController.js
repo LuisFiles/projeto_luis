@@ -5,6 +5,7 @@ function reservasController(ReservaModel) {
         create, 
         findAll,
         findById,
+        findByIdUser,
         update,
         removeById
     };
@@ -36,6 +37,15 @@ function reservasController(ReservaModel) {
             ReservaModel.findById(id)
                 .populate('utilizador livro')
                 .then((reserva) => resolve(reserva))
+                .catch((err) => reject(err));
+        });
+    }
+
+    function findByIdUser(userId) {
+        return new Promise((resolve, reject) => {
+            ReservaModel.find({ utilizador: userId })
+                .populate('utilizador livro')
+                .then((reservas) => resolve(reservas))
                 .catch((err) => reject(err));
         });
     }
