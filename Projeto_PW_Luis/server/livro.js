@@ -6,6 +6,9 @@ const authController = require("../data/user/authController"); // Certifique-se 
 const utilizador = require("../data/user/indexAuth");
 const utilizadorService = require('../data/user/authController');
 const scopes = require("../data/user/scopes");
+const VerifyToken = require('../middleware/token');
+const cookieParser = require('cookie-parser');
+const authMiddleware = require('../middleware/token');
 
 function livroRouter() {
     let router = express.Router();
@@ -13,26 +16,9 @@ function livroRouter() {
     router.use(bodyParser.json({ limit: '100mb' }));
     router.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
-    router.use(function (req, res, next) {
-        let token = req.headers["x-access-token"];
-        if (!token) {
-            return res
-                .status(400)
-                .send({ auth: false, message: "Token não fornecido2." });
-        }
+    router.use(cookieParser());
+    router.use(VerifyToken);
 
-        utilizador.verificaToken(token)
-            .then((decoded) => {
-                console.log("--> Valid Token <--");
-                console.log("DECODED->", JSON.stringify(decoded, null, 2));
-                req.roleUser = decoded.role;
-                next();
-            })
-            .catch((err) => {
-                console.error("Token verification failed: ", err.message);
-                res.status(401).send({ auth: false, message: "Nao tem autorizacao" });
-            });
-    });
 
     router.route('/livro')
         .get(utilizador.authorize([scopes["read-all"], scopes["read-posts"], scopes["admin"]]))

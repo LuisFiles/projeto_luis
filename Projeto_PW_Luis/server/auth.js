@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser'); // Import cookie-parser
 const utilizadorModel = require('../data/user/utilizador'); // Certifique-se de que este é o caminho correto para o modelo de utilizador
 const utilizadorService = require('../data/user/authController')(utilizadorModel);
 
@@ -8,6 +9,7 @@ function authRouter() {
 
     router.use(bodyParser.json({ limit: '100mb' }));
     router.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+    router.use(cookieParser()); // Use cookie-parser middleware
 
     router.route('/registo').post(async (req, res, next) => {
         const body = req.body;
@@ -24,9 +26,10 @@ function authRouter() {
     });
 
     router.route('/me').get(async (req, res, next) => {
-        const token = req.headers['x-access-token'];
+        // Use cookie for token if available
+        const token = req.headers['x-access-token'] || req.cookies.token; 
         if (!token) {
-            return res.status(401).json({ auth: false, message: 'Token não fornecido1.' });
+            return res.status(401).json({ auth: false, message: 'Token não fornecido.' });
         }
 
         try {
@@ -39,23 +42,26 @@ function authRouter() {
     });
 
     router.route("/login").post(async (req, res, next) => { 
-        let body = req.body;
+        const body = req.body;
         console.log("Login para utilizador: ", body);   
-        return utilizadorService.findUtilizador(body)   
-        .then((user) => {
-            return utilizadorService.criarToken(user);
-        })
-        .then((response) => {
-            res.status(200);
-            res.send(response);
+        
+        try {
+            const user = await utilizadorService.findUtilizador(body);
+            const response = await utilizadorService.criarToken(user);
+            res.cookie('token', response.token, { httpOnly: true }); // Set token as httpOnly cookie
+            res.status(200).json(response);
             console.log(response);
-        })
-        .catch((err) => {
-            res.status(500);
-            res.send(err);
-            next();
-         });
+        } catch (err) {
+            res.status(500).json({ error: err.message });
+            next(err);
+        }
     });
+
+    router.get('/logout', (req, res) => {
+        res.cookie('token', '', { httpOnly: true, maxAge: 0 });
+        res.status(200).send({ logout: true });
+    });
+
     return router;
 }
 

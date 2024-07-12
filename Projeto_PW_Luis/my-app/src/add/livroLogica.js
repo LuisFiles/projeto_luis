@@ -18,31 +18,11 @@ const LivroLogica = (props) => {
     const [loading, setLoading] = useState(true);
     const [sortField, setSortField] = useState('');
     const [sortOrder, setSortOrder] = useState('');
-
-    const getCurrentPage = () => {
-        const queryParams = qs.parse(props.url?.search || '');
-        const current = queryParams.current;
-        return current ? Number(current) : 1;
-    };
-
-    const getPageSize = () => {
-        const queryParams = qs.parse(props.url?.search || '');
-        const pageSize = queryParams.pageSize;
-        return pageSize ? Number(pageSize) : 5;
-    };
-
-    const preferences = getPreferencesUrlToStorage("table");
-    const [preferencesStorage, setPreferencesToStorage] = useLocalStorage(preferences, {
-        current: preferences[preferencesToStorage.PAGE_TABLE] || 1
-    });
-
-    const [data, setData] = useState({
-        livro: [],
-        pagination: {
-            current: getCurrentPage(),
-            pageSize: getPageSize(),
-            total: 0
-        },
+    const [data, setData] = useState([]);
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 10,
+        total: 0,
     });
 
     const fetchApi = (pageSize, current, sortField, sortOrder) => {
@@ -60,18 +40,13 @@ const LivroLogica = (props) => {
         })
         .then((response) => {
             console.log('Response:', response);
-            const { livro = [], pagination = {} } = response.livro;
-            setData({
-                livro: livro,
-                pagination: {
-                    current: current || 1,
-                    pageSize: pagination.pageSize || pageSize,
-                    total: pagination.total || 0,
-                },
-            });
-
-            setPreferencesToStorage({
-                current: current
+            // Directly use response since it's an array of books
+            const livro = response;
+            setData(livro);
+            setPagination({
+                current: current,
+                pageSize: pageSize,
+                total: livro.length, // Assuming response length for total (this might need to be adjusted)
             });
             setLoading(false);
         })
@@ -82,18 +57,15 @@ const LivroLogica = (props) => {
     };
 
     const handleTableChange = (pagination, filters, sorter) => {
-        const { field, order } = sorter || {};
-        console.log('Sorter:', field, order);
+        const { field, order } = sorter;
         setSortField(field);
         setSortOrder(order);
         fetchApi(pagination.pageSize, pagination.current, field, order);
     };
 
     useEffect(() => {
-        fetchApi(data.pagination.pageSize, data.pagination.current, sortField, sortOrder);
-    }, [data.pagination.pageSize, data.pagination.current, sortField, sortOrder]);
-
-    const { livro, pagination } = data;
+        fetchApi(pagination.pageSize, pagination.current, sortField, sortOrder);
+    }, [pagination.current, pagination.pageSize, sortField, sortOrder]);
 
     return (
         <div>
@@ -111,7 +83,7 @@ const LivroLogica = (props) => {
             <Table
                 columns={columns}
                 rowKey={(record) => record._id}
-                dataSource={livro}
+                dataSource={data}
                 pagination={pagination}
                 loading={loading}
                 onChange={handleTableChange}
