@@ -18,7 +18,7 @@ function livroRouter() {
         if (!token) {
             return res
                 .status(400)
-                .send({ auth: false, message: "Token não fornecido." });
+                .send({ auth: false, message: "Token não fornecido2." });
         }
 
         utilizador.verificaToken(token)

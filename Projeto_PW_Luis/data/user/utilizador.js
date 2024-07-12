@@ -11,7 +11,7 @@ const utilizadorSchema = new mongoose.Schema({
     nome: {type: String, required: true},
     email: {type: String, required: true},
     password: {type: String, required: true},
-    role: { type: roleSchema}
+    role: { type: roleSchema, default: {name: "user", scopes: [scopes["user"]]}},
 });
 
 let utilizador = mongoose.model('utilizador', utilizadorSchema);

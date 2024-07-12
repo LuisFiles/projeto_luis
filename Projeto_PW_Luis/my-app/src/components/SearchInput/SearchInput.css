@@ -1,0 +1,17 @@
+.searchInput {
+    width: 200px; /* Ajuste a largura conforme necessário */
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+
+    /* Adicionar sombra para um efeito mais bonito */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: none;
+}

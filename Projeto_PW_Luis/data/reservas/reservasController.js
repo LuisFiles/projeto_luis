@@ -1,4 +1,3 @@
-// controllers/reservasController.js
 
 function reservasController(ReservaModel) {
     let controller = { 

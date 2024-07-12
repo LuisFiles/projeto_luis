@@ -1,0 +1,43 @@
+.header {
+    background-color: #3a4148;
+    padding: 30px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+}
+
+.auth-links {
+    display: flex;
+    gap: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.header-content {
+    text-align: center;
+}
+
+.input-container {
+    margin-top: 10px;
+}
+
+.search-summary {
+    margin-top: 10px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}

@@ -19,7 +19,7 @@ function reservaRouter() {
         if (!token) {
             return res
                 .status(400)
-                .send({ auth: false, message: 'Token não fornecido.' });
+                .send({ auth: false, message: 'Token não fornecido3.' });
         }
 
         utilizador.verificaToken(token)
