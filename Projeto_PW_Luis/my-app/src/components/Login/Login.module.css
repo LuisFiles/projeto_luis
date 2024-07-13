@@ -1,39 +1,87 @@
+/* Login.module.css */
+
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 1%;
+    height: 88vh;
+    width: 100%;
+    background-image: url('../assets/bibliotecas.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .login {
     max-width: 400px;
-    margin: 50px auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
+    border: 3px solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 50%;
+    margin: auto;
 }
 
-.formGroup {
+.login h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.field {
     margin-bottom: 15px;
+    text-align: left;
 }
 
-label {
+.field label {
     display: block;
     margin-bottom: 5px;
+    color: #333;
 }
 
-input {
+.field input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 5px;
+}
+
+.button {
+    width: 95%;
+    padding: 6px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
+.button:hover {
     background-color: #0056b3;
+}
+
+.error {
+    color: #ff0000;
+    font-size: 14px;
+    margin-top: 5px;
 }

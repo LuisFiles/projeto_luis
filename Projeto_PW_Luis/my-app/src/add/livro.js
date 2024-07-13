@@ -8,28 +8,11 @@ const Livros = () => {
     const location = useLocation();
     const [userLogged, setUserLogged] = useState(null);
 
-
-    const OnClickLogout = () => {
-        fetch('/auth/logout', {
-            headers: { 'Accept': 'application/json'}
-        })
-        .then((response) => response.json())
-        .then((response) => {
-            if(response.logout){
-                setUserLogged(false);
-            }
-        })
-        .catch(() => {
-            setUserLogged(false);
-        })
-    }
-
     useEffect(() => {
-        // Include an authorization header if required by your backend
         fetch('/auth/me', {
             headers: {
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}` // Adjust as per your token storage method
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
         .then(response => {
@@ -53,21 +36,31 @@ const Livros = () => {
         }
     }, [userLogged, navigate]);
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setUserLogged(false);
+        navigate('/');
+    };
+
     if (userLogged === null) {
-        // Optionally, you can show a loading spinner or message here
         return <div>Loading...</div>;
     }
 
     return (
         <div className='Livro'>
             <div className='links'>
-                <Link to="/">HomePage</Link>
+                <Link to="/">Logout</Link>
+                {userLogged ? (
+                    <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
+                ) : (
+                    <>
+                    </>
+                )}
             </div>
             <label>Livros:</label>
             <div className='player-container'>
                 <LivroLogica url={location} />
             </div>
-            <button className="buttons" onClick={OnClickLogout}> Logout </button>
         </div>
     );
 };

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import "./Login.module.css";
+import { useNavigate, Link } from "react-router-dom";
+import styles from "./Login.module.css"; // Correctly import the CSS module
+import biblioteca from "../assets/bibliotecas.png"; // Correctly import the image
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -47,29 +48,43 @@ const LoginForm = () => {
         }
     }, [loginSuccess, navigate]);
 
+    useEffect(() => {
+        console.log("Component rendered");
+    }, []);
+
     return (
-        <div className="loginform">
-            <h2>Login Form</h2>
-            {errorMessage && <p className="error">{errorMessage}</p>}
-            <form className="form-login" onSubmit={handleSubmit(onSubmit)}>
-                <div className="field">
-                    <label>Nome:</label>
-                    <input
-                        type="nome"
-                        {...register("nome", { required: "Name is required" })}
-                    />
-                    {errors.nome && <p className="error">{errors.nome.message}</p>}
-                </div>
-                <div className="field">
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        {...register("password", { required: "Password is required" })}
-                    />
-                    {errors.password && <p className="error">{errors.password.message}</p>}
-                </div>
-                <input className="button" type="submit" value="Login" />
-            </form>
+        <div 
+            className={styles.loginContainer}
+            style={{ backgroundImage: `url(${biblioteca})` }} // Inline style as fallback
+        >
+            <div className={styles.login}>
+                <h2>Login Form</h2>
+                {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+                <form className={styles.formLogin} onSubmit={handleSubmit(onSubmit)}>
+                    <div className={styles.field}>
+                        <label>Nome:</label>
+                        <input
+                            type="nome"
+                            {...register("nome", { required: "Name is required" })}
+                        />
+                        {errors.nome && <p className={styles.error}>{errors.nome.message}</p>}
+                    </div>
+                    <div className={styles.field}>
+                        <label>Password:</label>
+                        <input
+                            type="password"
+                            {...register("password", { required: "Password is required" })}
+                        />
+                        {errors.password && <p className={styles.error}>{errors.password.message}</p>}
+                    </div>
+                    <div className={styles.buttonContainer}>
+                        <input className={styles.button} type="submit" value="Login" />
+                        <Link to="/register" className={styles.button}>
+                            Registar
+                        </Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
