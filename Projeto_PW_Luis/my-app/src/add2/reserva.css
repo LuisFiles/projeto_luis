@@ -1,0 +1,27 @@
+/* livro.css */
+.Reserva {
+    padding: 20px;
+}
+
+.links {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.links a, .links button {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #000;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.links button:hover, .links a:hover {
+    color: #007bff;
+}
+
+.player-container {
+    margin-top: 20px;
+}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import LivroLogica from './livroLogica';
-import './livro.css';
+import reservaLogica from './reservaLogica';
+import './reserva.css';
 
-const Livros = () => {
+const Reservas = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [userLogged, setUserLogged] = useState(null);
@@ -42,34 +42,27 @@ const Livros = () => {
         navigate('/');
     };
 
-    const handleReserve = () => {
-        navigate('/reserva');
-    };
-
     if (userLogged === null) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div className='Livro'>
+        <div className='Reserva'>
             <div className='links'>
                 <Link to="/">Logout</Link>
                 {userLogged ? (
-                    <>
-                        <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
-                        <button onClick={handleReserve} style={{ marginLeft: '30px' }}>Reservar</button>
-                    </>
+                    <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
                 ) : (
                     <>
                     </>
                 )}
             </div>
-            <label>Livros:</label>
+            <label>Reservas:</label>
             <div className='player-container'>
-                <LivroLogica url={location} />
+                <reservaLogica url={location} />
             </div>
         </div>
     );
 };
 
-export default Livros;
+export default Reservas;
