@@ -1,5 +1,5 @@
 /* livro.css */
-.Livro {
+.Reserva {
     padding: 20px;
 }
 
@@ -19,12 +19,7 @@
 }
 
 .links button:hover, .links a:hover {
-    margin-left: 50px;
-    text-decoration: none;
-    color: #000;
-    background: none;
-    border: none;
-    cursor: pointer;
+    color: #007bff;
 }
 
 .player-container {

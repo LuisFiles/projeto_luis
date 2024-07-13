@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
-import styles from "./Login.module.css"; // Correctly import the CSS module
-import biblioteca from "../assets/bibliotecas.png"; // Correctly import the image
+import styles from "./Login.module.css"; 
+import biblioteca from "../assets/biblioteca2.jpg"; 
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -55,7 +55,7 @@ const LoginForm = () => {
     return (
         <div 
             className={styles.loginContainer}
-            style={{ backgroundImage: `url(${biblioteca})` }} // Inline style as fallback
+            style={{ backgroundImage: `url(${biblioteca})` }} 
         >
             <div className={styles.login}>
                 <h2>Login Form</h2>

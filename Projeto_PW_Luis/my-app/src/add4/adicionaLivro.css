@@ -1,5 +1,6 @@
-/* livro.css */
-.Livro {
+/* adicionaLivro.css */
+
+.adicionaLivro {
     padding: 20px;
 }
 
@@ -7,6 +8,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .links a, .links button {
@@ -16,15 +18,16 @@
     background: none;
     border: none;
     cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
 }
 
 .links button:hover, .links a:hover {
-    margin-left: 50px;
-    text-decoration: none;
-    color: #000;
-    background: none;
-    border: none;
-    cursor: pointer;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
 .player-container {

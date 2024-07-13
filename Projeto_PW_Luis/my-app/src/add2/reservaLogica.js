@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Table, Select } from 'antd';
-import qs from 'query-string';
 import './reservaLogica.css';
-import { useLocalStorage } from 'react-use-storage';
-import { getPreferencesUrlToStorage, preferencesToStorage } from './utilis/localStorage';
 
 const { Option } = Select;
 
 const ReservaLogica = (props) => {
     const columns = [
-        { title: "utilizador", dataIndex: "utilizador", key: "utilizador", sorter: true },
-        { title: "livro", dataIndex: "livro", key: "livro", sorter: true },
-        { title: "dataReserva", dataIndex: "dataReserva", key: "dataReserva", sorter: true },
-        { title: "dataVencimento", dataIndex: "dataVencimento", key: "dataVencimento", sorter: true },
-        { title: "dataDevolucao", dataIndex: "dataDevolucao", key: "dataDevolucao", sorter: true },
-        { title: "status", dataIndex: "status", key: "status", sorter: true },
+        { title: "Utilizador", dataIndex: "utilizador", key: "utilizador", sorter: true },
+        { title: "Livro", dataIndex: "livro", key: "livro", sorter: true },
+        { title: "Data Reserva", dataIndex: "dataReserva", key: "dataReserva", sorter: true },
+        { title: "Data Vencimento", dataIndex: "dataVencimento", key: "dataVencimento", sorter: true },
+        { title: "Data Devolucao", dataIndex: "dataDevolucao", key: "dataDevolucao", sorter: true },
+        { title: "Status", dataIndex: "status", key: "status", sorter: true },
     ];
 
     const [loading, setLoading] = useState(true);
@@ -42,13 +39,11 @@ const ReservaLogica = (props) => {
         })
         .then((response) => {
             console.log('Response:', response);
-            // Directly use response since it's an array of books
-            const reserva = response;
-            setData(reserva);
+            setData(response);
             setPagination({
                 current: current,
                 pageSize: pageSize,
-                total: reserva.length, // Assuming response length for total (this might need to be adjusted)
+                total: response.length, // Adjust this based on actual total count from API
             });
             setLoading(false);
         })
@@ -77,12 +72,12 @@ const ReservaLogica = (props) => {
                 onChange={(value) => setSortField(value)}
                 value={sortField}
             >
-                <Option value="utilizador">utilizador</Option>
-                <Option value="livro">livro</Option>
-                <Option value="dataReserva">dataReserva</Option>
-                <Option value="dataVencimento">dataVencimento</Option>
-                <Option value="dataDevolucao">dataDevolucao</Option>
-                <Option value="status">status</Option>
+                <Option value="utilizador">Utilizador</Option>
+                <Option value="livro">Livro</Option>
+                <Option value="dataReserva">Data Reserva</Option>
+                <Option value="dataVencimento">Data Vencimento</Option>
+                <Option value="dataDevolucao">Data Devolucao</Option>
+                <Option value="status">Status</Option>
             </Select>
             <Table
                 columns={columns}

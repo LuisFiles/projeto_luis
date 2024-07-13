@@ -2,7 +2,7 @@
 
 .header {
     background-color: #609fdf;
-    padding: 20px 0;
+    padding: 5px;
     color: #fff;
     width: 100%;
     display: flex;
@@ -19,31 +19,26 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 5px 20px;
 }
 
 .logo {
-    width: 80px; /* Increased size */
-    height: 80px;
-}
-
-.clock {
-    margin-left: auto;
-    font-size: 1.2em;
+    width: 50px;
+    height: 50px;
 }
 
 .header-content {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .header-content h3 {
-    font-size: 2em;
-    margin: 10px 0;
+    font-size: 1.5em;
+    margin: 5px 0;
 }
 
 .input-container {
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -51,7 +46,7 @@
 
 .input-container input {
     width: 300px;
-    padding: 10px;
+    padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1em;
@@ -60,7 +55,7 @@
 .input-container button {
     background-color: #fff;
     color: #609fdf;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: none;
     border-radius: 5px;
     font-size: 1em;
@@ -72,4 +67,10 @@
 .input-container button:hover {
     background-color: #507ecc;
     color: #fff;
+}
+
+.clock-container {
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
 }

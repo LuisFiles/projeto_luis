@@ -1,0 +1,47 @@
+/* reservaFormLogica.css */
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.form h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.form .ant-form-item {
+    margin-bottom: 15px;
+}
+
+.form .ant-input,
+.form .ant-select-selector {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.form .ant-btn-primary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #609fdf;
+    border: none;
+}
+
+.form .ant-btn-primary:hover {
+    background-color: #507ecc;
+}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import LivroLogica from './livroLogica';
-import './livro.css';
+import AdicionaLivroLogica from './adicionaLivroLogica'; // Correct import
+import './adicionaLivro.css';
 
-const Livros = () => {
+const AdicionaLivro = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [userLogged, setUserLogged] = useState(null);
@@ -42,56 +42,31 @@ const Livros = () => {
         navigate('/');
     };
 
-    const handleReserve = () => {
-        navigate('/reserva');
-    };
-
-    const handleAdicionaLivro = () => {
-        navigate('/adicionaLivro');
-    };
-
-
     if (userLogged === null) {
         return <div>Loading...</div>;
     }
 
+    const handleReserve = () => {
+        navigate('/livro');
+    };
+
     return (
-        <div className='Livro'>
+        <div className='adicionaLivro'>
             <div className='links'>
-                <Link to="/">Logout</Link>
-                {userLogged ? (
+                {userLogged && (
                     <>
-                        <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
-                    </>
-                ) : (
-                    <>
+                        <button onClick={handleLogout} className="action-button">Logout</button>
+                        <button onClick={handleReserve} className="action-button">Voltar</button>
                     </>
                 )}
-                <Link to="/reserva">Reserva</Link>
-                {userLogged ? (
-                    <>
-                      <button onClick={handleReserve} className="action-button">Reservar</button>
-                    </>
-                ) : (
-                    <>
-                    </>
-                )}
-                <Link to="/adicionaLivro">Adicionar Livro</Link>
-                {userLogged ? (
-                    <>
-                      <button onClick={handleAdicionaLivro} className="action-button">Adicionar Livro</button>
-                    </>
-                ) : (
-                    <>
-                    </>
-                )}
+                {!userLogged && <Link to="/">Logout</Link>}
             </div>
-            <label>Livros:</label>
+            <label>Adicionar Livro</label>
             <div className='player-container'>
-                <LivroLogica url={location} />
+                <AdicionaLivroLogica />
             </div>
         </div>
     );
 };
 
-export default Livros;
+export default AdicionaLivro;

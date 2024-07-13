@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import LivroLogica from './livroLogica';
-import './livro.css';
+import reservaFormLogica from './reservaFormLogica'; // Correct import
+import './reservaForm.css';
+import ReservaFormLogica from './reservaFormLogica';
 
-const Livros = () => {
+const ReservaForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [userLogged, setUserLogged] = useState(null);
@@ -42,21 +43,16 @@ const Livros = () => {
         navigate('/');
     };
 
-    const handleReserve = () => {
-        navigate('/reserva');
-    };
-
-    const handleAdicionaLivro = () => {
-        navigate('/adicionaLivro');
-    };
-
-
     if (userLogged === null) {
         return <div>Loading...</div>;
     }
 
+    const handleReserve = () => {
+        navigate('/livro');
+    };
+
     return (
-        <div className='Livro'>
+        <div className='ReservaForm'>
             <div className='links'>
                 <Link to="/">Logout</Link>
                 {userLogged ? (
@@ -67,19 +63,10 @@ const Livros = () => {
                     <>
                     </>
                 )}
-                <Link to="/reserva">Reserva</Link>
+                <Link to="/livro">Voltar</Link>
                 {userLogged ? (
                     <>
-                      <button onClick={handleReserve} className="action-button">Reservar</button>
-                    </>
-                ) : (
-                    <>
-                    </>
-                )}
-                <Link to="/adicionaLivro">Adicionar Livro</Link>
-                {userLogged ? (
-                    <>
-                      <button onClick={handleAdicionaLivro} className="action-button">Adicionar Livro</button>
+                      <button onClick={handleReserve} className="action-button">Voltar</button>
                     </>
                 ) : (
                     <>
@@ -88,10 +75,10 @@ const Livros = () => {
             </div>
             <label>Livros:</label>
             <div className='player-container'>
-                <LivroLogica url={location} />
+                <ReservaFormLogica url={location} />
             </div>
         </div>
     );
 };
 
-export default Livros;
+export default ReservaForm;

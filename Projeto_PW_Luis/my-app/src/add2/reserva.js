@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import reservaLogica from './reservaLogica';
+import ReservaLogica from './reservaLogica'; // Correct import
 import './reserva.css';
 
 const Reservas = () => {
@@ -46,20 +46,48 @@ const Reservas = () => {
         return <div>Loading...</div>;
     }
 
+    const handleReserve = () => {
+        navigate('/livro');
+    };
+
+    const handleReservaForm = () => {
+        navigate('/reservaForm');
+    };
+
     return (
         <div className='Reserva'>
             <div className='links'>
                 <Link to="/">Logout</Link>
                 {userLogged ? (
-                    <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
+                    <>
+                        <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
+                    </>
+                ) : (
+                    <>
+                    </>
+                )}
+                <Link to="/livro">Voltar</Link>
+                {userLogged ? (
+                    <>
+                      <button onClick={handleReserve} className="action-button">Voltar</button>
+                    </>
+                ) : (
+                    <>
+                    </>
+                )}
+                <Link to="/reservaForm">Reservar</Link>
+                {userLogged ? (
+                    <>
+                      <button onClick={handleReservaForm} className="action-button">Reservar</button>
+                    </>
                 ) : (
                     <>
                     </>
                 )}
             </div>
-            <label>Reservas:</label>
+            <label>Livros:</label>
             <div className='player-container'>
-                <reservaLogica url={location} />
+                <ReservaLogica url={location} />
             </div>
         </div>
     );
