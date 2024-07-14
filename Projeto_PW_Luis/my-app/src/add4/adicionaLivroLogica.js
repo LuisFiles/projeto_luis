@@ -10,7 +10,7 @@ const AdicionaLivroLogica = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const onSubmit = (data) => {
-        fetch('/livros', {
+        fetch('/api/livro', { // Corrected endpoint to /livro
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,11 +25,7 @@ const AdicionaLivroLogica = () => {
             return response.json();
         })
         .then(response => {
-            if (response.success) {
-                setAddSuccess(true);
-            } else {
-                setErrorMessage("Failed to add book");
-            }
+            setAddSuccess(true);
         })
         .catch(error => {
             console.error("Error:", error);
@@ -38,7 +34,7 @@ const AdicionaLivroLogica = () => {
     };
 
     if (addSuccess) {
-        navigate('/livros');
+        navigate('/livro');
     }
 
     return (

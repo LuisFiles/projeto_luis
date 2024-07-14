@@ -6,7 +6,7 @@ import Register from './components/Register/Register';
 import Livro from './add/livro';
 import Reserva from './add2/reserva';
 import ReservaForm from './add3/reservaForm';
-import adicionaLivro from './add4/adicionaLivro';
+import AdicionaLivro from './add4/adicionaLivro';
 import './App.css';
 
 const App = () => {
@@ -20,7 +20,7 @@ const App = () => {
                     <Route path="/livro" element={<Livro />} /> 
                     <Route path="/reserva" element={<Reserva />} />
                     <Route path="/reservaForm" element={<ReservaForm />} />
-                    <Route path="/adicionaLivro" element={<adicionaLivro />} />
+                    <Route path="/adicionaLivro" element={<AdicionaLivro />} />
                 </Routes>
             </div>
         </Router>

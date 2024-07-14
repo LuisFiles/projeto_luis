@@ -51,19 +51,30 @@ const AdicionaLivro = () => {
     };
 
     return (
-        <div className='adicionaLivro'>
+        <div className='ReservaForm'>
             <div className='links'>
-                {userLogged && (
+                <Link to="/">Logout</Link>
+                {userLogged ? (
                     <>
-                        <button onClick={handleLogout} className="action-button">Logout</button>
-                        <button onClick={handleReserve} className="action-button">Voltar</button>
+                        <button onClick={handleLogout} style={{ marginLeft: '10px' }}>Logout</button>
+                    </>
+                ) : (
+                    <>
                     </>
                 )}
-                {!userLogged && <Link to="/">Logout</Link>}
+                <Link to="/livro">Voltar</Link>
+                {userLogged ? (
+                    <>
+                      <button onClick={handleReserve} className="action-button">Voltar</button>
+                    </>
+                ) : (
+                    <>
+                    </>
+                )}
             </div>
-            <label>Adicionar Livro</label>
+            <label>Livros:</label>
             <div className='player-container'>
-                <AdicionaLivroLogica />
+                <AdicionaLivroLogica url={location} />
             </div>
         </div>
     );
