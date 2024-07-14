@@ -10,7 +10,7 @@ const AdicionaLivroLogica = () => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const onSubmit = (data) => {
-        fetch('/api/livro', { // Corrected endpoint to /livro
+        fetch('/api/livro', { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

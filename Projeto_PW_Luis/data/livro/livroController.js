@@ -70,6 +70,7 @@ function livroController(livroModel) {
                 .catch((err) => reject(err));
         });
     }
+    
 
     return controller;
 }

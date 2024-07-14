@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import reservaFormLogica from './reservaFormLogica'; // Correct import
 import './reservaForm.css';
 import ReservaFormLogica from './reservaFormLogica';
 

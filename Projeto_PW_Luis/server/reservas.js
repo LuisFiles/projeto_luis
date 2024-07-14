@@ -45,7 +45,6 @@ function reservaRouter() {
             }
         });
 
-
     router.route('/reserva/user/:userId')
         .get(utilizador.authorize([scopes["admin"], scopes["user"]]),(req, res) => {
             console.log('get by user id');

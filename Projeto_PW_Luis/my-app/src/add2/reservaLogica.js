@@ -43,7 +43,7 @@ const ReservaLogica = (props) => {
             setPagination({
                 current: current,
                 pageSize: pageSize,
-                total: response.length, // Adjust this based on actual total count from API
+                total: response.length, 
             });
             setLoading(false);
         })

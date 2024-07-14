@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./Login.module.css"; 
-import biblioteca from "../assets/biblioteca2.jpg"; 
+import biblioteca from "../assets/bibliotecas.png"; 
 
 const LoginForm = () => {
     const navigate = useNavigate();
