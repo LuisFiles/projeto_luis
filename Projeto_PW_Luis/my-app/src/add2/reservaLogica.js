@@ -6,8 +6,20 @@ const { Option } = Select;
 
 const ReservaLogica = (props) => {
     const columns = [
-        { title: "Utilizador", dataIndex: "utilizador", key: "utilizador", sorter: true },
-        { title: "Livro", dataIndex: "livro", key: "livro", sorter: true },
+        {
+            title: "Utilizador",
+            dataIndex: "utilizador",
+            key: "utilizador",
+            sorter: true,
+            render: (text, record) => record.utilizador.nome,
+        },
+        {
+            title: "Livro",
+            dataIndex: "livro",
+            key: "livro",
+            sorter: true,
+            render: (text, record) => record.livro.titulo,
+        },
         { title: "Data Reserva", dataIndex: "dataReserva", key: "dataReserva", sorter: true },
         { title: "Data Vencimento", dataIndex: "dataVencimento", key: "dataVencimento", sorter: true },
         { title: "Data Devolucao", dataIndex: "dataDevolucao", key: "dataDevolucao", sorter: true },

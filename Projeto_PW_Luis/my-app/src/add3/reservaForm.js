@@ -72,7 +72,7 @@ const ReservaForm = () => {
                     </>
                 )}
             </div>
-            <label>Livros:</label>
+            <label>Reserva:</label>
             <div className='player-container'>
                 <ReservaFormLogica url={location} />
             </div>
